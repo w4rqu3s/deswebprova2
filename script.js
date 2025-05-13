@@ -125,7 +125,18 @@ function missileDirection(direction, naveWidth) {
 function shootMissile(missileDiv, isActive, fired) {
     if (paused || isActive || fired) return true;
 
+    const naveLeft = parseFloat(window.getComputedStyle(naveDiv).left);
+    const naveWidth = naveDiv.offsetWidth;
+    const missileLeft = naveLeft + naveWidth / 2 - missileDiv.offsetWidth / 2;
+
+    missileDiv.style.left = `${missileLeft}px`;
+    missileDiv.style.top = `${naveDiv.offsetTop}px`;
+
+    // Força reinício da animação
+    missileDiv.style.animation = 'none';
+    missileDiv.offsetHeight;
     missileDiv.style.animation = "missile-shoot 1s linear forwards";
+
     return true;
 }
 
@@ -242,3 +253,71 @@ updateNaveLife(); // Inicializa a vida na tela
 function myFunction() {
     var x = 1 + 1;
 }
+
+const missile1 = document.getElementById('missile1');
+const missile2 = document.getElementById('missile2');
+let alien1 = document.getElementById('alien1-id');
+let alien2 = document.getElementById('alien2-id');
+let alien3 = document.getElementById('alien3-id');
+
+// Function to check for collision between two elements
+function checkCollision(element1, element2) {
+    const rect1 = element1.getBoundingClientRect();
+    const rect2 = element2.getBoundingClientRect();
+
+    return !(rect1.top > rect2.bottom ||
+        rect1.bottom < rect2.top ||
+        rect1.left > rect2.right ||
+        rect1.right < rect2.left);
+}
+
+// Function to handle missile-alien collision
+function handleMissileAlienCollision(missile, alien) {
+    if (checkCollision(missile, alien)) {
+        // Remove both missile and alien
+        // missile.remove();
+        alien.remove();
+
+        // Update the alien score
+        alienScore++;
+        updateDisplay();
+
+        // Reset missile state
+        if (missile.id === 'missile1') {
+            missile1Fired = false;
+            missile1Active = false;
+        } else if (missile.id === 'missile2') {
+            missile2Fired = false;
+            missile2Active = false;
+        }
+    }
+}
+
+// Main game loop to check for collisions
+function gameLoop() {
+    if (missile1Fired) handleMissileAlienCollision(missile1, alien1);
+    if (missile1Fired) handleMissileAlienCollision(missile1, alien2);
+    if (missile1Fired) handleMissileAlienCollision(missile1, alien3);
+    if (missile2Fired) handleMissileAlienCollision(missile2, alien1);
+    if (missile2Fired) handleMissileAlienCollision(missile2, alien2);
+    if (missile2Fired) handleMissileAlienCollision(missile2, alien3);
+
+    if (!document.getElementById('alien1-id') &&
+        !document.getElementById('alien2-id') &&
+        !document.getElementById('alien3-id')) {
+        resetAlienAnimation();
+        // Recria os aliens para o próximo ataque
+        createAlien('alien1-id');
+        createAlien('alien2-id');
+        createAlien('alien3-id');
+
+        // Reatribui as variáveis
+        alien1 = document.getElementById('alien1-id');
+        alien2 = document.getElementById('alien2-id');
+        alien3 = document.getElementById('alien3-id');
+    }
+
+    requestAnimationFrame(gameLoop);
+}
+
+gameLoop();

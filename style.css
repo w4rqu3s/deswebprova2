@@ -156,34 +156,35 @@
     /* Ajuste a largura conforme necessário */
     display: flex;
     align-items: center;
-    animation: descend 2s forwards;
+    animation: descend 8s forwards;
   }
 
   .game-over-screen-class {
-     position: fixed;
-     top: 0;
-     left: 0;
-     width: 100vw;
-     height: 100vh;
-     background-color: rgba(0, 0, 0, 0.8);
-     color: white;
-     display: none; /* Inicialmente escondido */
-     justify-content: center;
-     align-items: center;
-     flex-direction: column;
-     font-size: 2em;
-     z-index: 10000;
- }
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    display: none;
+    /* Inicialmente escondido */
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-size: 2em;
+    z-index: 10000;
+  }
 
- #restart-button {
-     padding: 10px 20px;
-     font-size: 1em;
-     cursor: pointer;
- }
+  #restart-button {
+    padding: 10px 20px;
+    font-size: 1em;
+    cursor: pointer;
+  }
 
   @keyframes descend {
     0% {
-      top: -300px;
+      top: -200px;
       /* Início fora da tela */
     }
 
