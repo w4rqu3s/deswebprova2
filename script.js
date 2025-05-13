@@ -4,6 +4,14 @@ let seg = 0;
 let id;
 let left = 0;
 
+const backgrounds = [
+    'images/background.jpg',
+    'images/background2.jpg',
+    'images/background3.jpg',
+    'images/background4.jpg'
+];
+
+
 var paused = true;
 
 const playerDiv = document.querySelector("#player-div");
@@ -17,6 +25,11 @@ let missile1Active = false;
 let missile2Active = false;
 let missile1Fired = false;
 let missile2Fired = false;
+
+let currentPhase = 1;
+const maxPhases = 4;
+let alienSpeed = 2; // velocidade inicial da animação (em segundos)
+
 
 function add() {
     seg++;
@@ -205,11 +218,14 @@ function updateDisplay() {
 }
 
 function resetAlienAnimation() {
-    alienElement.style.animation = 'none'; // Remove a animação
-    alienElement.style.top = '-300px'; // Reseta a posição
-    void alienElement.offsetWidth; // Força um reflow
-    alienElement.style.animation = 'descend 2s forwards'; // Reinicia a animação
+    alienElement.style.animation = 'none';
+    alienElement.style.top = '-300px';
+    void alienElement.offsetWidth; // Força reflow
+
+    // aplica a velocidade atual com base na fase
+    alienElement.style.animation = `descend ${alienSpeed}s forwards`;
 }
+
 
 function alienAttack() {
     alienScore++;
@@ -306,6 +322,18 @@ function gameLoop() {
         !document.getElementById('alien2-id') &&
         !document.getElementById('alien3-id')) {
         resetAlienAnimation();
+
+        // if (currentPhase >= maxPhases) {
+        //     // Vitória
+        //     victory();
+        //     return;
+        // }
+
+        // Avança para a próxima fase
+        currentPhase++;
+        alienSpeed = Math.max(0.5, alienSpeed - 0.3); // Aumenta a dificuldade
+        changeBackground(); // Altera o cenário
+
         // Recria os aliens para o próximo ataque
         createAlien('alien1-id');
         createAlien('alien2-id');
@@ -319,5 +347,18 @@ function gameLoop() {
 
     requestAnimationFrame(gameLoop);
 }
+
+function changeBackground() {
+    document.body.style.backgroundImage = `url('${backgrounds[currentPhase - 1]}')`;
+}
+
+// function victory() {
+//     clearInterval(id);
+//     paused = true;
+//     document.querySelector("#victory-screen").style.display = "flex";
+//     missileDiv1.style.animationPlayState = 'paused';
+//     missileDiv2.style.animationPlayState = 'paused';
+// }
+
 
 gameLoop();
