@@ -1,0 +1,159 @@
+@mixin background-template {
+    position: fixed;
+    background-size: cover;
+    background-position: center;
+    z-index: -99999;
+    width: 100vw;
+    height: 100vh;
+}
+
+@mixin img-info-template {
+    margin: 12px;
+    height: 100px;
+    width: 100px;
+}
+
+@mixin info-div-text-template {
+    font-size: 30px;
+    display: flex;
+    align-items: center;
+    margin-left: 45px;
+}
+
+
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    color: white;
+    font-family: 'Times New Roman', 'Times', 'serif';
+}
+
+.background-1 {
+    @include background-template();
+    background-image: url(images/background.png);
+}
+
+.background-2 {
+    @include background-template();
+    background-image: url(images/background2.png);
+}
+
+.background-3 {
+    @include background-template();
+    background-image: url(images/background3.png);
+}
+
+.background-4 {
+    @include background-template();
+    background-image: url(images/background4.png);
+}
+
+.pause-screen-class {
+    width: 100vw;
+    height: 100vh;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(black, 0.6);
+    position: fixed;
+    z-index: 99999;
+    text-align: center;
+    font-size: 50px;
+}
+
+.info-div-class {
+    display: flex;
+    flex-direction: column;
+    height: 375px;
+    width: 325px;
+    margin: 20px;
+    background-color: rgba(black, 0.8);
+    box-shadow: 0 0 10px 8px rgb(255, 255, 255);
+    .time-div-class {
+        display: flex;
+        flex-direction: row;
+        .clock-img {
+            @include img-info-template();
+        }
+        .timer-text-class {
+            @include info-div-text-template();
+        }
+    }
+
+    .nave-div-class {
+        @extend .time-div-class;
+        .nave-img {
+            @include img-info-template();
+        }
+        .nave-text-class {
+            @include info-div-text-template();
+        }
+    }
+
+    .alien-div-class {
+        @extend .time-div-class;
+        .alien-img {
+            @include img-info-template();
+        }
+        .alien-text-class {
+            @include info-div-text-template();
+        }
+    }
+}
+
+.player-div-class {
+    position: absolute;
+    bottom: 0;
+    height: 300px;
+    width: 300px;
+    left: 42.2%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    transition: all 0.1s ease-in-out;
+}
+
+.nave-class {
+    position: absolute;
+    bottom: 0;
+    height: 300px;
+    width: 300px;
+    left: 42.2%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    transition: all 0.1s ease-in-out;
+}
+
+.player-img-class {
+    width: 300px;
+    height: 300px;
+    z-index: 2;
+    position: relative;
+}
+
+.missile-container {
+    margin-top: 20px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-around;
+}
+
+.missile-img-class {
+    width: 50px;
+    height: 200px;
+}
+
+@keyframes missile-shoot {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-75vh);
+    }
+
+}
