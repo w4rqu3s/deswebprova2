@@ -28,7 +28,7 @@ let missile2Fired = false;
 
 let currentPhase = 1;
 const maxPhases = 4;
-let alienSpeed = 2; // velocidade inicial da animação (em segundos)
+let alienSpeed = 2; 
 
 
 function add() {
@@ -56,6 +56,8 @@ function resume() {
         paused = false;
         missileDiv1.style.animationPlayState = missile1Fired ? 'running' : 'running';
         missileDiv2.style.animationPlayState = missile2Fired ? 'running' : 'running';
+        const enemy = document.querySelector('.enemy-class');
+        enemy.style.animationPlayState = 'running';
     } else {
         missileDiv1.style.animationPlayState = 'running';
         missileDiv2.style.animationPlayState = 'running';
@@ -69,6 +71,8 @@ function pause() {
         paused = true;
         missileDiv1.style.animationPlayState = 'paused';
         missileDiv2.style.animationPlayState = 'paused';
+        const enemy = document.querySelector('.enemy-class');
+        enemy.style.animationPlayState = 'paused';
     }
 }
 
@@ -145,7 +149,7 @@ function shootMissile(missileDiv, isActive, fired) {
     missileDiv.style.left = `${missileLeft}px`;
     missileDiv.style.top = `${naveDiv.offsetTop}px`;
 
-    // Força reinício da animação
+
     missileDiv.style.animation = 'none';
     missileDiv.offsetHeight;
     missileDiv.style.animation = "missile-shoot 1s linear forwards";
@@ -178,7 +182,7 @@ missileDiv1.addEventListener('animationend', function () {
 
 missileDiv2.addEventListener('animationend', function () {
     missile2Active = false;
-    if (missile1Fired) { // Check if missile 1 was fired
+    if (missile1Fired) { 
         resetMissile(missileDiv1);
         resetMissile(missileDiv2);
         missile1Fired = false;
@@ -220,26 +224,24 @@ function updateDisplay() {
 function resetAlienAnimation() {
     alienElement.style.animation = 'none';
     alienElement.style.top = '-300px';
-    void alienElement.offsetWidth; // Força reflow
+    void alienElement.offsetWidth; 
 
-    // aplica a velocidade atual com base na fase
     alienElement.style.animation = `descend ${alienSpeed}s forwards`;
 }
 
 
 function alienAttack() {
-    alienScore++;
     updateDisplay();
-    naveLife--; // Diminui a vida da nave
-    updateNaveLife(); // Atualiza a vida na tela
+    naveLife--; 
+    updateNaveLife(); 
 
     if (naveLife <= 0) {
-        gameOver(); // Se a vida acabar, Game Over
+        gameOver(); 
     } else {
         youlose();
         setTimeout(function () {
             resumelose();
-            resetAlienAnimation(); // Reinicia a animação
+            resetAlienAnimation(); 
         }, 3000);
 
 
@@ -264,7 +266,7 @@ function updateNaveLife() {
 
 
 updateDisplay();
-updateNaveLife(); // Inicializa a vida na tela
+updateNaveLife(); 
 
 function myFunction() {
     var x = 1 + 1;
@@ -276,7 +278,7 @@ let alien1 = document.getElementById('alien1-id');
 let alien2 = document.getElementById('alien2-id');
 let alien3 = document.getElementById('alien3-id');
 
-// Function to check for collision between two elements
+
 function checkCollision(element1, element2) {
     const rect1 = element1.getBoundingClientRect();
     const rect2 = element2.getBoundingClientRect();
@@ -287,18 +289,17 @@ function checkCollision(element1, element2) {
         rect1.right < rect2.left);
 }
 
-// Function to handle missile-alien collision
+
 function handleMissileAlienCollision(missile, alien) {
     if (checkCollision(missile, alien)) {
-        // Remove both missile and alien
-        // missile.remove();
+
         alien.remove();
 
-        // Update the alien score
+
         alienScore++;
         updateDisplay();
 
-        // Reset missile state
+
         if (missile.id === 'missile1') {
             missile1Fired = false;
             missile1Active = false;
@@ -309,7 +310,7 @@ function handleMissileAlienCollision(missile, alien) {
     }
 }
 
-// Main game loop to check for collisions
+
 function gameLoop() {
     if (missile1Fired) handleMissileAlienCollision(missile1, alien1);
     if (missile1Fired) handleMissileAlienCollision(missile1, alien2);
@@ -324,22 +325,22 @@ function gameLoop() {
         resetAlienAnimation();
 
         if (currentPhase >= maxPhases) {
-            // Vitória
+
             victory();
             return;
         }
 
-        // Avança para a próxima fase
+   
         currentPhase++;
-        alienSpeed = Math.max(0.5, alienSpeed - 0.3); // Aumenta a dificuldade
-        changeBackground(); // Altera o cenário
+        alienSpeed = Math.max(0.5, alienSpeed - 0.3); 
+        changeBackground(); 
 
-        // Recria os aliens para o próximo ataque
+
         createAlien('alien1-id');
         createAlien('alien2-id');
         createAlien('alien3-id');
 
-        // Reatribui as variáveis
+
         alien1 = document.getElementById('alien1-id');
         alien2 = document.getElementById('alien2-id');
         alien3 = document.getElementById('alien3-id');
@@ -350,8 +351,9 @@ function gameLoop() {
 
 function changeBackground() {
     const bg = document.getElementById("background");
-    bg.className = "";
-    bg.classList.add("background-${currentPhase}");
+    bgclassname = 'background-' + currentPhase;
+    bg.className = bgclassname;
+    console.log(bg.className);
 }
 
 function victory() {
@@ -360,6 +362,8 @@ function victory() {
     document.querySelector("#victory-screen").style.display = "flex";
     missileDiv1.style.animationPlayState = 'paused';
     missileDiv2.style.animationPlayState = 'paused';
+    const enemy = document.querySelector('.enemy-class');
+    enemy.style.animationPlayState = 'paused';
 }
 
 

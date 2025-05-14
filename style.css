@@ -144,16 +144,10 @@
 
   .enemy-class {
     position: absolute;
-    /*bottom: 0;*/
-    /* Remova ou comente esta linha */
     top: -20px;
-    /* Defina a distância do topo */
     left: 500px;
-    /* Defina a distância da esquerda */
     height: 300px;
-    /* Ajuste a altura conforme necessário */
     width: 300px;
-    /* Ajuste a largura conforme necessário */
     display: flex;
     align-items: center;
     animation: descend 8s forwards;
@@ -185,12 +179,10 @@
   @keyframes descend {
     0% {
       top: -200px;
-      /* Início fora da tela */
     }
 
     100% {
       top: 380px;
-      /* Posição final (ajuste conforme necessário) */
     }
   }
 
