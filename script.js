@@ -5,7 +5,7 @@ let id;
 let left = 0;
 
 const backgrounds = [
-    'images/background.jpg',
+    'images/background.png',
     'images/background2.jpg',
     'images/background3.jpg',
     'images/background4.jpg'
@@ -323,11 +323,11 @@ function gameLoop() {
         !document.getElementById('alien3-id')) {
         resetAlienAnimation();
 
-        // if (currentPhase >= maxPhases) {
-        //     // Vitória
-        //     victory();
-        //     return;
-        // }
+        if (currentPhase >= maxPhases) {
+            // Vitória
+            victory();
+            return;
+        }
 
         // Avança para a próxima fase
         currentPhase++;
@@ -349,16 +349,18 @@ function gameLoop() {
 }
 
 function changeBackground() {
-    document.body.style.backgroundImage = `url('${backgrounds[currentPhase - 1]}')`;
+    const bg = document.getElementById("background");
+    bg.className = "";
+    bg.classList.add("background-${currentPhase}");
 }
 
-// function victory() {
-//     clearInterval(id);
-//     paused = true;
-//     document.querySelector("#victory-screen").style.display = "flex";
-//     missileDiv1.style.animationPlayState = 'paused';
-//     missileDiv2.style.animationPlayState = 'paused';
-// }
+function victory() {
+    clearInterval(id);
+    paused = true;
+    document.querySelector("#victory-screen").style.display = "flex";
+    missileDiv1.style.animationPlayState = 'paused';
+    missileDiv2.style.animationPlayState = 'paused';
+}
 
 
 gameLoop();

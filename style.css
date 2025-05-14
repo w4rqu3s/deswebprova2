@@ -23,7 +23,7 @@
     z-index: -99999;
     width: 100vw;
     height: 100vh;
-    background-image: url(images/background2.png);
+    background-image: url(images/background2.jpg);
   }
 
   .background-3 {
@@ -33,7 +33,7 @@
     z-index: -99999;
     width: 100vw;
     height: 100vh;
-    background-image: url(images/background3.png);
+    background-image: url(images/background3.jpg);
   }
 
   .background-4 {
@@ -43,7 +43,7 @@
     z-index: -99999;
     width: 100vw;
     height: 100vh;
-    background-image: url(images/background4.png);
+    background-image: url(images/background4.jpg);
   }
 
   .pause-screen-class {
@@ -243,5 +243,7 @@
       transform: translateY(-75vh);
     }
   }
+
+ 
 
   /*# sourceMappingURL=style.css.map */
